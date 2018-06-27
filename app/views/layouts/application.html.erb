@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Demo Rails App</title>
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <%= link_to 'Home', root_path, class: "navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="<%= active_class?(root_path) %>">
+          <%= link_to 'Home', root_path, class: "nav-link" %>
+        </li>
+        <li>
+          <a class="nav-link" href="#">Page 1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Page 2</a>
+        </li>
+      </ul>
+    </div>
+    <% if current_user %>
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= current_user.email %>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <%= link_to 'Edit profile', edit_user_registration_path, class: "dropdown-item" %>
+          <%= link_to 'Logout', destroy_user_session_path, method: 'delete', class: "dropdown-item" %>
+        </div>
+      </div>
+    <% else %>
+      <%= link_to "Log in", new_user_session_path, class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+</nav>
+<div class="container">
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, class: "alert alert-#{ name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do %>
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <%= msg %>
+    <% end %>
+  <% end %>
+  <%= yield %>
+</div>
+
+<footer class="fixed-bottom footer-dark bg-dark">
+  <div class="container">
+    <div class="col-md-4">
+      <p>Copyright <%= Time.now.year %></p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

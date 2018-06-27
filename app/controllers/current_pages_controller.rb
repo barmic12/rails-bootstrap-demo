@@ -1,0 +1,2 @@
+class CurrentPagesController < ApplicationController
+end
