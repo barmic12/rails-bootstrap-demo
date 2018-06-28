@@ -31,11 +31,11 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   ActionMailer::Base.smtp_settings = {
-      :address              => "smtp.gmail.com",
-      :port                 => 587,
-      :domain               => "gmail.com",
-      :user_name            => ENV['GMAIL_USERNAME'],
-      :password             => ENV['GMAIL_PASSWORD'],
+      :address              => ENV['EMAIL_SMTP_ADDRESS'],
+      :port                 => ENV['EMAIL_SMPT_PORT'],
+      :domain               => ENV['EMAIL_DOMAIN'],
+      :user_name            => ENV['EMAIL_USERNAME'],
+      :password             => ENV['EMAIL_PASSWORD'],
       :authentication       => "plain",
       :enable_starttls_auto => true
   }
